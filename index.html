@@ -8,12 +8,12 @@
 
   <style>
     :root {
-      --bg: #0f172a;          /* slate-900 */
-      --bg-soft: #111827;    /* gray-900 */
-      --text: #e5e7eb;       /* gray-200 */
-      --muted: #9ca3af;      /* gray-400 */
-      --primary: #38bdf8;    /* sky-400 */
-      --border: #1f2937;     /* gray-800 */
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --primary: #38bdf8;
+      --border: #1f2937;
     }
 
     * { box-sizing: border-box; }
@@ -29,13 +29,14 @@
     a { color: var(--primary); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
+    /* ===== Layout ===== */
     header {
-      border-bottom: 1px solid var(--border);
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(6px);
       position: sticky;
       top: 0;
       z-index: 10;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border);
     }
 
     .container {
@@ -51,25 +52,19 @@
       height: 64px;
     }
 
-    nav strong {
-      font-size: 1.1rem;
-      letter-spacing: 0.5px;
-    }
-
     nav ul {
       list-style: none;
       display: flex;
       gap: 20px;
-      padding: 0;
       margin: 0;
+      padding: 0;
     }
 
     section {
-      padding: 96px 0;
       position: relative;
+      padding: 96px 0;
     }
 
-    /* tránh line đè lên nội dung cuối section */
     section > .container {
       padding-bottom: 32px;
     }
@@ -77,59 +72,77 @@
     section::after {
       content: "";
       position: absolute;
-      left: 50%;
       bottom: 0;
+      left: 50%;
       transform: translateX(-50%);
       width: 70%;
       height: 1px;
       background: var(--border);
-      margin-top: 24px;
     }
 
-    h1, h2, h3 {
-      line-height: 1.25;
-    }
-
-    h1 {
-      font-size: 2.4rem;
-      margin-bottom: 16px;
-    }
-
-    h2 {
-      font-size: 1.8rem;
-      margin-bottom: 24px;
-    }
-
-    p {
+    footer {
+      padding: 64px 0 40px;
+      text-align: center;
+      font-size: 0.9rem;
       color: var(--muted);
-      max-width: 750px;
     }
 
-    .hero {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 40px;
-      align-items: center;
-    }
+    /* ===== Typography ===== */
+    h1 { font-size: 2.4rem; margin-bottom: 16px; }
+    h2 { font-size: 1.8rem; margin-bottom: 24px; }
+    h3 { margin-top: 0; }
 
-    .hero-box {
-      background: rgba(30, 41, 59, 0.4);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 28px;
-    }
+    p { color: var(--muted); max-width: 760px; }
 
     .badge {
       display: inline-block;
+      margin: 8px 0 20px;
       padding: 6px 12px;
-      border-radius: 999px;
       font-size: 0.85rem;
+      border-radius: 999px;
       background: rgba(56, 189, 248, 0.15);
       color: var(--primary);
-      margin-bottom: 20px; /* tách badge khỏi header */
-      margin-top: 8px;     /* tránh dính vào header trên */
     }
 
+    /* ===== Hero ===== */
+    .hero {
+      max-width: 760px;
+    }
+
+    /* ===== Gallery ===== */
+    .gallery-box {
+      margin-top: 24px;
+      height: 70vh;
+      min-height: 420px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: rgba(30, 41, 59, 0.4);
+    }
+
+    .gallery-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.35s ease;
+    }
+
+    .toggle-btn {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .toggle-btn.active {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(56, 189, 248, 0.12);
+    }
+
+    /* ===== Features ===== */
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -137,26 +150,20 @@
     }
 
     .card {
-      border: 1px solid var(--border);
-      border-radius: 14px;
       padding: 22px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
       background: rgba(17, 24, 39, 0.6);
     }
 
-    .card h3 {
-      margin-top: 0;
-    }
-
-    footer {
-      padding: 64px 0 40px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
+    /* ===== Responsive ===== */
     @media (max-width: 768px) {
-      .hero {
-        grid-template-columns: 1fr;
+      .gallery-box {
+        height: auto;
+      }
+
+      .gallery-box img {
+        object-fit: contain;
       }
     }
   </style>
@@ -177,29 +184,36 @@
   </div>
 </header>
 
-<section class="container">
-  <div class="hero">
-    <div>
-      <span class="badge">Offline Judge • Academic Tool</span>
-      <h1>CodeBench – Phần mềm chấm bài lập trình offline</h1>
-      <p>
-        CodeBench là một công cụ <strong>Offline Judge</strong> phục vụ sinh viên và giảng viên trong việc
-        học tập, thực hành và đánh giá bài tập lập trình mà không phụ thuộc vào hệ thống trực tuyến.
-      </p>
-      <p>
-        Phần mềm được phát triển trong khuôn khổ dự án <strong>StuKit</strong>, hướng tới môi trường học thuật,
-        ổn định, dễ triển khai và phù hợp cho lớp học.
-      </p>
-      <div style="margin-top:24px; margin-bottom:32px;">
-        <p style="margin-bottom:12px;">
-          <a href="https://github.com/huycitEIU/CodeBench" target="_blank">Xem mã nguồn trên GitHub →</a>
-        </p>
-        <a href="#demo" style="display:inline-block; padding:10px 18px; border:1px solid var(--primary); border-radius:999px; color:var(--primary);">▶ Xem video demo</a>
-      </div>
+<section>
+  <div class="container hero">
+    <span class="badge">Offline Judge • Academic Tool</span>
+    <h1>CodeBench – Phần mềm chấm bài lập trình offline</h1>
+    <p>
+      CodeBench là công cụ <strong>Offline Judge</strong> dành cho sinh viên và giảng viên,
+      hỗ trợ học tập, thực hành và đánh giá bài tập lập trình mà không phụ thuộc Internet.
+    </p>
+    <p>
+      Phần mềm thuộc dự án <strong>StuKit</strong>, định hướng học thuật, ổn định
+      và phù hợp triển khai trong lớp học.
+    </p>
+    <p style="margin-top: 24px;">
+      <a href="https://github.com/huycitEIU/CodeBench" target="_blank">Xem mã nguồn trên GitHub →</a>
+    </p>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="container">
+    <h2>Giao diện phần mềm</h2>
+    <p>Minh họa giao diện CodeBench ở các chế độ hiển thị khác nhau.</p>
+
+    <div style="display:flex; gap:12px; margin:24px 0;">
+      <button class="toggle-btn active" data-img="imgs/main-light.png">Light</button>
+      <button class="toggle-btn" data-img="imgs/main-dark.png">Dark</button>
     </div>
 
-    <div class="hero-box">
-      <img src="imgs/main.png" alt="Giao diện chính CodeBench" style="width:100%; border-radius:10px; display:block;" />
+    <div class="gallery-box">
+      <img id="gallery-image" src="imgs/main-light.png" alt="CodeBench UI" />
     </div>
   </div>
 </section>
@@ -208,13 +222,8 @@
   <div class="container">
     <h2>Định hướng & mục tiêu</h2>
     <p>
-      CodeBench được xây dựng nhằm giải quyết các hạn chế của các hệ thống chấm bài online
-      trong môi trường giảng dạy: phụ thuộc Internet, khó kiểm soát môi trường chạy và
-      thiếu tính linh hoạt khi sử dụng tại lớp.
-    </p>
-    <p>
-      Phần mềm ưu tiên tính <strong>đơn giản</strong>, <strong>ổn định</strong> và
-      <strong>phù hợp cho đào tạo</strong>, thay vì chạy theo các tính năng nặng như một IDE đầy đủ.
+      CodeBench được xây dựng nhằm khắc phục hạn chế của các hệ thống chấm bài online:
+      phụ thuộc Internet, khó kiểm soát môi trường chạy và thiếu linh hoạt khi dạy học.
     </p>
   </div>
 </section>
@@ -223,22 +232,10 @@
   <div class="container">
     <h2>Các chức năng chính</h2>
     <div class="features">
-      <div class="card">
-        <h3>Chấm bài offline</h3>
-        <p>Tự động biên dịch và chạy chương trình với test case có sẵn mà không cần kết nối mạng.</p>
-      </div>
-      <div class="card">
-        <h3>Kiểm soát môi trường</h3>
-        <p>Giảng viên có thể chuẩn hóa môi trường chấm, tránh sai lệch giữa các máy.</p>
-      </div>
-      <div class="card">
-        <h3>Phù hợp cho lớp học</h3>
-        <p>Thiết kế hướng tới sử dụng trong phòng máy và các môn học lập trình cơ bản.</p>
-      </div>
-      <div class="card">
-        <h3>Thuộc hệ sinh thái StuKit</h3>
-        <p>Dễ dàng mở rộng và tích hợp với các công cụ khác trong cùng hệ sinh thái.</p>
-      </div>
+      <div class="card"><h3>Chấm bài offline</h3><p>Biên dịch và chạy với test case cục bộ.</p></div>
+      <div class="card"><h3>Chuẩn hóa môi trường</h3><p>Giảm sai lệch giữa các máy.</p></div>
+      <div class="card"><h3>Phù hợp lớp học</h3><p>Thiết kế cho phòng máy và môn học cơ bản.</p></div>
+      <!-- <div class="card"><h3>StuKit ecosystem</h3><p>Dễ mở rộng, tích hợp công cụ khác.</p></div> -->
     </div>
   </div>
 </section>
@@ -246,46 +243,46 @@
 <section id="project">
   <div class="container">
     <h2>Hệ sinh thái StuKit</h2>
-    <p>
-      CodeBench là một phần của dự án StuKit – bộ công cụ hỗ trợ học tập và quản lý quy trình
-      cho sinh viên ngành CNTT.
-    </p>
     <ul>
-      <li><strong>CodeBench</strong> – Offline Judge (đang phát triển)</li>
-      <li><strong>Flow</strong> – Công cụ hỗ trợ quy trình học tập (kế hoạch)</li>
-      <li><strong>PlanU</strong> – Quản lý kế hoạch học tập cá nhân (kế hoạch)</li>
+      <li><strong>CodeBench</strong> – Offline Judge</li>
+      <!-- <li><strong>Flow</strong> – Công cụ hỗ trợ quy trình học tập (kế hoạch)</li>
+      <li><strong>PlanU</strong> – Quản lý kế hoạch cá nhân (kế hoạch)</li> -->
     </ul>
-    <!-- TODO: Có thể chèn sơ đồ hoặc hình minh họa hệ sinh thái StuKit -->
   </div>
 </section>
 
 <section id="contact">
   <div class="container">
     <h2>Thông tin liên hệ</h2>
-    <p>
-      <strong>Trần Gia Huy</strong><br />
-      Sinh viên – Eastern International University<br />
-      Chuyên ngành Kỹ thuật Phần mềm
-    </p>
+    <p><strong>Trần Gia Huy</strong><br />Eastern International University – Kỹ thuật Phần mềm</p>
     <p>Email: <a href="mailto:huy.trangia.cit23@eiu.edu.vn">huy.trangia.cit23@eiu.edu.vn</a></p>
-    <p>EIU IT Club: <a href="https://www.eiuitclub.io.vn/" target="_blank">https://www.eiuitclub.io.vn/</a></p>
+    <p>EIU IT Club: <a href="https://www.eiuitclub.io.vn/" target="_blank">eiuitclub.io.vn</a></p>
   </div>
 </section>
 
 <footer>
   <div class="container">
-    © 2026 CodeBench – StuKit Project. Academic & Educational Use.<br />
-    Liên kết học thuật: <a href="https://www.eiuitclub.io.vn/" target="_blank">EIU IT Club</a>
+    © 2026 CodeBench – StuKit Project · Academic Use<br />
+    <a href="https://www.eiuitclub.io.vn/" target="_blank">EIU IT Club</a>
   </div>
 </footer>
 
 <script>
-  // JS thuần – hiện tại chưa cần logic phức tạp
-  // Có thể dùng sau cho animation nhẹ hoặc dark/light mode
+  const buttons = document.querySelectorAll('.toggle-btn');
+  const image = document.getElementById('gallery-image');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      image.style.opacity = 0;
+      setTimeout(() => {
+        image.src = btn.dataset.img;
+        image.style.opacity = 1;
+      }, 150);
+    });
+  });
 </script>
 
 </body>
 </html>
-
-
-
